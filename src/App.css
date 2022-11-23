@@ -13,5 +13,6 @@
   .text-top,
   .text-bottom {
     font-size: 2.5rem;
+    width: 60%;
   }
 }

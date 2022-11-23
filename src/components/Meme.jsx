@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
-import memesData from "../assets/js/memes.Data.js";
 import Container from "react-bootstrap/Container";
 
 function Meme(props) {
@@ -12,7 +11,16 @@ function Meme(props) {
     randomImage: "",
   });
 
-  const [allMemeImages, setAllMemeImages] = useState(memesData.data.memes);
+  const [allMemeImages, setAllMemes] = useState([]);
+
+  useEffect(() => {
+    async function getMemes() {
+      const res = await fetch("https://api.imgflip.com/get_memes");
+      const data = await res.json();
+      setAllMemes(data.data.memes);
+    }
+    getMemes();
+  }, []);
 
   const getMemeImage = () => {
     const randomNumber = Math.floor(Math.random() * allMemeImages.length);
@@ -52,8 +60,10 @@ function Meme(props) {
       <Row className="mt-5 justify-content-center">
         <Col md={6} className="d-flex justify-content-center position-relative">
           <img src={meme.randomImage} alt="" className="mw-100 p-3" />
-          <p className="position-absolute top-0 text-top">{meme.topText}</p>
-          <p className="position-absolute bottom-0 text-bottom">
+          <p className="position-absolute top-0 text-top text-uppercase">
+            {meme.topText}
+          </p>
+          <p className="position-absolute bottom-0 text-bottom text-uppercase">
             {meme.bottomText}
           </p>
         </Col>

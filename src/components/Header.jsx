@@ -6,7 +6,7 @@ function Header(props) {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="#">
+        <Navbar.Brand href="/">
           <img
             src={require("../assets/images/TrollFace.png")}
             alt=""
